@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:weather_application/screens/home/state/weather_provider.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    final state = Provider.of<WeatherProvider>(context, listen: true);
     return Scaffold(
         backgroundColor: Colors.blue,
         body: SafeArea(
@@ -41,12 +50,16 @@ class HomeScreen extends StatelessWidget {
                   height: 185,
                   child: Stack(
                     children: [
-                      Text(
-                        13.toString(),
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 167,
-                          fontWeight: FontWeight.bold,
+                      Center(
+                        child: Text(
+                          state.days.isEmpty
+                              ? ''
+                              : state.days[0].maxTemp.round().toString(),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 167,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                       Align(
