@@ -12,10 +12,10 @@ class RepositoryWeather {
   //   return _weatherApi.getWeather(city);
   // }
   //https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&current=is_day&daily=weather_code,temperature_2m_max,temperature_2m_min,uv_index_max
-  Future<DailyDTO> getWeather() async {
+  Future<DailyDTO> getWeather(double latitude, double longitude) async {
     final url = Uri.https('api.open-meteo.com', 'v1/forecast', {
-      'latitude': '34.923096',
-      'longitude': '33.634045',
+      'latitude': latitude.toString(),
+      'longitude': longitude.toString(),
       'current': 'temperature_2m,is_day',
       'daily': [
         'weather_code',

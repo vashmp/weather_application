@@ -6,7 +6,10 @@ class WeatherProvider with ChangeNotifier {
   List<DayModel> days = [];
 
   Future<void> init() async {
-    final dailyModel = await RepositoryWeather().getWeather();
+    final dailyModel = await RepositoryWeather().getWeather(
+        // Change 1
+        34.923096,
+        33.634045); // Change 2
     for (var i = 0; i < dailyModel.time.length; i++) {
       days.add(DayModel(
         date: dailyModel.time[i],
