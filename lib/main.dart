@@ -1,8 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:weather_application/app.dart';
-import 'package:weather_application/core/repo/repository_weather.dart';
 
 Future<void> main() async {
-  await RepositoryWeather().getWeather();
+  LocationPermission permission = await Geolocator.checkPermission();
+  if (permission == LocationPermission.denied) {
+    permission = await Geolocator.requestPermission();
+  }
+  if (permission == LocationPermission.deniedForever) {
+    print('Location permissions are permanently denied');
+  }
+  Position position =
+      await Geolocator.getCurrentPosition(locationSettings: locationSettings);
+  print(position);
+//  await RepositoryWeather().getWeather();
   runApp(const Application());
 }
+
+final LocationSettings locationSettings = LocationSettings(
+  accuracy: LocationAccuracy.high,
+  distanceFilter: 100,
+);

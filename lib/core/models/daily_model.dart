@@ -25,4 +25,8 @@ class DailyDTO {
 
   static List<DateTime> _dateTimeParcer(List<String> input) =>
       input.map((date) => DateTime.parse(date)).toList();
+
+  bool isHot(int index) {
+    return tempMax[index] > 25;
+  }
 }
